@@ -35,6 +35,22 @@ namespace ProjectUpdateApp.Service
            return _userProjectUpdateRepository.DeleteProjectUpdate(ProjectUpdateID);
         }
 
+        public ICollection<UserProjectUpdate> FilterByDate()
+        {
+            return _userProjectUpdateRepository.FilterByDate();
+        }
+
+        public ICollection<UserProjectUpdate> FilterByProjectName()
+        {
+            return _userProjectUpdateRepository.FilterByProjectName();
+
+        }
+
+        public ICollection<UserProjectUpdate> FilterByProjectStatus()
+        {
+            return _userProjectUpdateRepository.FilterByProjectStatus();
+        }
+
         public ICollection<UserProjectUpdate> GetProjectList()
         {
           return _userProjectUpdateRepository.GetProjectList();

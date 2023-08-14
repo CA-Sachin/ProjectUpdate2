@@ -97,5 +97,6 @@ namespace ProjectUpdateApp.Controllers
             var t=_userService.GetDetils(email);
             return Ok(t);
         }
+     
     }
 }

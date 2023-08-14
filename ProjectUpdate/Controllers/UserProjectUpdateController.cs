@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectUpdateApp.Dto;
 using ProjectUpdateApp.IService;
+using ProjectUpdateApp.Service;
 
 namespace ProjectUpdateApp.Controllers
 {
@@ -12,7 +13,7 @@ namespace ProjectUpdateApp.Controllers
         private readonly IUserProjectUpdateService _userProjectUpdateService;
         private readonly IMapper _mapper;
 
-        public UserProjectUpdateController(IUserProjectUpdateService userProjectUpdateService,IMapper mapper)
+        public UserProjectUpdateController(IUserProjectUpdateService userProjectUpdateService, IMapper mapper)
         {
             _userProjectUpdateService = userProjectUpdateService;
             _mapper = mapper;
@@ -23,14 +24,38 @@ namespace ProjectUpdateApp.Controllers
             var user = _userProjectUpdateService.GetProjectList();
             return Ok(user);
         }
+        [HttpGet("api/UserProjectUpdate/FilterByDate")]
+        public IActionResult FilterByDate()
+        {
+            var k = _userProjectUpdateService.FilterByDate();
+            return Ok(k);
+
+        }
+
+        [HttpGet("api/UserProjectUpdate/FilterByName")]
+        public IActionResult FilterByName()
+        {
+            var k = _userProjectUpdateService.FilterByProjectName();
+            return Ok(k);
+
+        }
+        [HttpGet("api/UserProjectUpdate/FilterByProjectStatus")]
+        public IActionResult FilterByProjectStatus()
+        {
+            var k = _userProjectUpdateService.FilterByProjectStatus();
+            return Ok(k);
+
+        }
+
         [HttpGet("{userid}")]
         public IActionResult GetAllProjectListByID(Guid userid)
         {
             var user = _userProjectUpdateService.GetProjectListByID(userid);
             return Ok(user);
         }
-        [HttpPost]
-        public IActionResult CreateProjectUpdate(Guid userid,UserProjectUpdateDto p)
+
+        [HttpPost("{userid}")]
+        public IActionResult CreateProjectUpdate(Guid userid, UserProjectUpdateDto p)
         {
 
 
@@ -39,21 +64,23 @@ namespace ProjectUpdateApp.Controllers
 
             return Ok("successfully created");
         }
-        [HttpPut]
-        public IActionResult UpdateDetails(Guid ProjectUpdateID,UserProjectUpdateDto p)
+
+        [HttpPut("{ProjectUpdateID}")]
+        public IActionResult UpdateDetails(Guid ProjectUpdateID, UserProjectUpdateDto p)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-           if(! _userProjectUpdateService.UpdateDetails(ProjectUpdateID,p))
+            if (!_userProjectUpdateService.UpdateDetails(ProjectUpdateID, p))
                 return BadRequest(ModelState);
 
-               return Ok("Detailas updated");
+            return Ok("Detailas updated");
         }
-        [HttpDelete]
+
+        [HttpDelete("{ProjectUpdateID}")]
         public IActionResult DeleteProjectUpdate(Guid ProjectUpdateID) {
-                    
-           _userProjectUpdateService.DeleteProjectUpdate(ProjectUpdateID) ;
+
+            _userProjectUpdateService.DeleteProjectUpdate(ProjectUpdateID);
 
             return Ok("Project Update Deleted!");
 
@@ -61,4 +88,5 @@ namespace ProjectUpdateApp.Controllers
 
 
     }
+   
 }

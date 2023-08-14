@@ -7,6 +7,11 @@ namespace ProjectUpdateApp.IService
     {
         public ICollection<UserProjectUpdate> GetProjectList();
         public ICollection<UserProjectUpdate> GetProjectListByID(Guid UserID);
+        public ICollection<UserProjectUpdate> FilterByDate();
+        public ICollection<UserProjectUpdate> FilterByProjectName();
+        public ICollection<UserProjectUpdate> FilterByProjectStatus();
+
+
 
 
         public bool CreateProjectUpdates(Guid id, UserProjectUpdateDto  projectUpdate);
