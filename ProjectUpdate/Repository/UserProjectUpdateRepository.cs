@@ -47,39 +47,167 @@ namespace ProjectUpdateApp.Repository
             return Save();
         }
 
-        public ICollection<UserProjectUpdate> GetProjectList()
+        public ICollection<UserUpdateDetailsDto> GetProjectList()
         {
        var userprojectupdates = (from upu in _dataContext.UserProjectUpdate
                                  join user in _dataContext.User on upu.Id equals user.Id
                                  join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
-                                select new UserProjectUpdate
-                             {
-                                     Id = user.Id,
-                                ProjectUpdateID = projectupdate.ProjectUpdateID,
-                                ProjectUpdate=projectupdate,
-                                User=user
-                             }).ToList();
+                                select new UserUpdateDetailsDto
+                                {
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    Role = user.Role,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+
+
+                                }).ToList();
                                
             return userprojectupdates;
                                 
         }
-
-
-
-        public ICollection<UserProjectUpdate> GetProjectListByID(Guid UserID)
+        public ICollection<UserUpdateDetailsDto> FilterByDate()
         {
+
             var userprojectupdates = (from upu in _dataContext.UserProjectUpdate
                                       join user in _dataContext.User on upu.Id equals user.Id
                                       join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
-                                      where upu.Id == UserID
-                                      select new UserProjectUpdate
-                                      {   Id=UserID,
-                                       ProjectUpdateID=projectupdate.ProjectUpdateID,
-                                          User = user,
-                                          ProjectUpdate = projectupdate,
+                                      orderby projectupdate.UpdateDate descending
+                                      select new UserUpdateDetailsDto
+                                      {
+
+                                          Id = user.Id,
+                                          ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                          Username = user.Username,
+                                          Role = user.Role,
+                                          ProjectName = projectupdate.ProjectName,
+                                          TaskDetails = projectupdate.TaskDetails,
+                                          ProjectStatus = projectupdate.ProjectStatus,
+                                          Workinghrs = projectupdate.Workinghrs,
+                                          Billinghrs = projectupdate.Billinghrs,
+                                          NextPlan = projectupdate.NextPlan,
+                                          UpdateDate = projectupdate.UpdateDate,
+
+
+                                      }).ToList();
+            return userprojectupdates;
+
+        }
+        public ICollection<UserUpdateDetailsDto> FilterByProjectName()
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.ProjectName ascending
+                                select new UserUpdateDetailsDto
+                                {
+
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    Role = user.Role,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+
+
+
+                                }).ToList();
+            return userprojects;
+        }
+
+        public ICollection<UserUpdateDetailsDto> FilterByProjectStatus()
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.ProjectStatus ascending
+                                select new UserUpdateDetailsDto
+                                {
+
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    Role = user.Role,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+
+
+                                }).ToList();
+            return userprojects;
+        }
+
+        public ICollection<UserUpdateDetailsDto> GetProjectListByID(Guid UserID)
+        {
+            var x = _dataContext.User.Where(x => x.Id == UserID).FirstOrDefault();
+
+            var p = _dataContext.UserProjectUpdate.Where(x => x.Id == UserID).FirstOrDefault();
+
+            
+
+            if (x != null && x.Role.Equals("employee", StringComparison.OrdinalIgnoreCase))
+            {
+                if (p == null)
+                    return new List<UserUpdateDetailsDto>();
+
+
+                var userprojectupdates = (from upu in _dataContext.UserProjectUpdate
+                                          join user in _dataContext.User on upu.Id equals user.Id
+                                          join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                          where upu.Id == UserID
+                                          select new UserUpdateDetailsDto
+                                          {
+                                              Id = UserID,
+                                              ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                              Username=x.Username,
+                                              Role=x.Role,
+                                              ProjectName=projectupdate.ProjectName,
+                                              TaskDetails=projectupdate.TaskDetails,
+                                              ProjectStatus=projectupdate.ProjectStatus,
+                                              Workinghrs=projectupdate.Workinghrs,
+                                              Billinghrs=projectupdate.Billinghrs,
+                                              NextPlan=projectupdate.NextPlan,
+                                              UpdateDate=projectupdate.UpdateDate,
+                                          }).ToList();
+
+                return userprojectupdates;
+            }
+                   var k =            (from upu in _dataContext.UserProjectUpdate
+                                      join user in _dataContext.User on upu.Id equals user.Id
+                                      join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                     
+                                      select new UserUpdateDetailsDto
+                                      {
+                                          Id = user.Id,
+                                          ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                          Username = user.Username,
+                                          Role=user.Role,
+                                          ProjectName = projectupdate.ProjectName,
+                                          TaskDetails = projectupdate.TaskDetails,
+                                          ProjectStatus = projectupdate.ProjectStatus,
+                                          Workinghrs = projectupdate.Workinghrs,
+                                          Billinghrs = projectupdate.Billinghrs,
+                                          NextPlan = projectupdate.NextPlan,
+                                          UpdateDate = projectupdate.UpdateDate,
                                       }).ToList();
 
-            return userprojectupdates;
+            return k;
+
         }
 
         public bool Save()
