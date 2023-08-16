@@ -182,7 +182,7 @@ namespace ProjectUpdateApp.Repository
                                               Workinghrs=projectupdate.Workinghrs,
                                               Billinghrs=projectupdate.Billinghrs,
                                               NextPlan=projectupdate.NextPlan,
-                                              UpdateDate=projectupdate.UpdateDate,
+                                              UpdateDate=projectupdate.UpdateDate, 
                                           }).ToList();
 
                 return userprojectupdates;
