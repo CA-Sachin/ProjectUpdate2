@@ -22,35 +22,14 @@ namespace ProjectUpdateApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjectUpdateApp.Models.Project", b =>
-                {
-                    b.Property<Guid>("ProjectID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProjectID");
-
-                    b.ToTable("Project");
-                });
-
             modelBuilder.Entity("ProjectUpdateApp.Models.ProjectUpdate", b =>
                 {
                     b.Property<Guid>("ProjectUpdateID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Billinghrs")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Billinghrs")
+                        .HasColumnType("int");
 
                     b.Property<string>("NextPlan")
                         .IsRequired()
@@ -79,13 +58,37 @@ namespace ProjectUpdateApp.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Workinghrs")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Workinghrs")
+                        .HasColumnType("int");
 
                     b.HasKey("ProjectUpdateID");
 
                     b.ToTable("ProjectUpdate");
+                });
+
+            modelBuilder.Entity("ProjectUpdateApp.Models.Role", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("ProjectUpdateApp.Models.User", b =>

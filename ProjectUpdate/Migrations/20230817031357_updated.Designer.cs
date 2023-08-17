@@ -12,8 +12,8 @@ using ProjectUpdateApp.Data;
 namespace ProjectUpdateApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230813104731_dgg")]
-    partial class dgg
+    [Migration("20230817031357_updated")]
+    partial class updated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,38 +25,14 @@ namespace ProjectUpdateApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjectUpdateApp.Models.Project", b =>
-                {
-                    b.Property<Guid>("ProjectID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProjectID");
-
-                    b.ToTable("Project");
-                });
-
             modelBuilder.Entity("ProjectUpdateApp.Models.ProjectUpdate", b =>
                 {
                     b.Property<Guid>("ProjectUpdateID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Billinghrs")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Billinghrs")
+                        .HasColumnType("int");
 
                     b.Property<string>("NextPlan")
                         .IsRequired()
@@ -85,20 +61,37 @@ namespace ProjectUpdateApp.Migrations
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Workinghrs")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Workinghrs")
+                        .HasColumnType("int");
 
                     b.HasKey("ProjectUpdateID");
 
-                    b.HasIndex("Id");
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("ProjectUpdate");
+                });
+
+            modelBuilder.Entity("ProjectUpdateApp.Models.Role", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("ProjectUpdateApp.Models.User", b =>
@@ -140,67 +133,48 @@ namespace ProjectUpdateApp.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("ProjectUpdateApp.Models.UserProject", b =>
+            modelBuilder.Entity("ProjectUpdateApp.Models.UserProjectUpdate", b =>
                 {
+                    b.Property<Guid>("ProjectUpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProjectID")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("ProjectUpdateID", "Id");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasIndex("Id");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectID");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserProject");
+                    b.ToTable("UserProjectUpdate");
                 });
 
-            modelBuilder.Entity("ProjectUpdateApp.Models.ProjectUpdate", b =>
+            modelBuilder.Entity("ProjectUpdateApp.Models.UserProjectUpdate", b =>
                 {
-                    b.HasOne("ProjectUpdateApp.Models.User", null)
-                        .WithMany()
+                    b.HasOne("ProjectUpdateApp.Models.User", "User")
+                        .WithMany("UserProjectUpdates")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectUpdateApp.Models.User", null)
-                        .WithMany("ProjectUpdates")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ProjectUpdateApp.Models.UserProject", b =>
-                {
-                    b.HasOne("ProjectUpdateApp.Models.Project", "Project")
-                        .WithMany("UserProjects")
-                        .HasForeignKey("ProjectID")
+                    b.HasOne("ProjectUpdateApp.Models.ProjectUpdate", "ProjectUpdate")
+                        .WithMany("UserProjectUpdates")
+                        .HasForeignKey("ProjectUpdateID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectUpdateApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
+                    b.Navigation("ProjectUpdate");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProjectUpdateApp.Models.Project", b =>
+            modelBuilder.Entity("ProjectUpdateApp.Models.ProjectUpdate", b =>
                 {
-                    b.Navigation("UserProjects");
+                    b.Navigation("UserProjectUpdates");
                 });
 
             modelBuilder.Entity("ProjectUpdateApp.Models.User", b =>
                 {
-                    b.Navigation("ProjectUpdates");
+                    b.Navigation("UserProjectUpdates");
                 });
 #pragma warning restore 612, 618
         }

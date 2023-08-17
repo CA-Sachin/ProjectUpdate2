@@ -10,25 +10,15 @@ namespace ProjectUpdateApp.Data
         }
        
         public DbSet<User> User { get; set; }
-        //public DbSet<UserProject> UserProject{ get; set; }
+      
         public DbSet<ProjectUpdate> ProjectUpdate{ get; set; }
         public DbSet<UserProjectUpdate> UserProjectUpdate{ get; set; }
+        public DbSet<Role> Role { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<UserProject>()
-            //    .HasKey(ur => new { ur.Id, ur.ProjectID });
-
-            //modelBuilder.Entity<UserProject>()
-            //    .HasOne(ur => ur.User)
-            //    .WithMany(u => u.UserProjects)
-            //    .HasForeignKey(ur => ur.Id);
-
-            //modelBuilder.Entity<UserProject>()
-            //    .HasOne(ur => ur.Project)
-            //    .WithMany(r => r.UserProjects)
-            //    .HasForeignKey(ur => ur.ProjectID);
+           
 
 
 
@@ -46,14 +36,6 @@ namespace ProjectUpdateApp.Data
                 .HasForeignKey(ur => ur.ProjectUpdateID);
 
 
-
-            //modelBuilder.Entity<ProjectUpdate>()
-            //   .HasKey(ur => new { ur.ProjectUpdateID});
-
-            //modelBuilder.Entity<ProjectUpdate>()
-            //    .HasOne<User>()
-            //    .WithMany()
-            //    .HasForeignKey(ur => ur.Id);
 
          
 

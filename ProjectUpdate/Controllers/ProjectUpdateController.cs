@@ -30,8 +30,8 @@ namespace ProjectUpdateApp.Controllers
         [HttpPost]
         public IActionResult CreateProjectUpdate([FromBody] ProjectUpdateDto projectupdatedto)
 
-        {
-           //string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        {    
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest("invalid entry");

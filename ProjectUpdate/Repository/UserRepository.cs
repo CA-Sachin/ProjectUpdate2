@@ -15,7 +15,11 @@ namespace ProjectUpdateApp.Repository
             _context = Context;
         }
         public bool CreateUser(User register)
-        {
+        {  
+            if(_context.User.Any(u=>u.Email == register.Email))
+            {
+                return false;
+            }
             _context.User.Add(register);
             return Save();
         }

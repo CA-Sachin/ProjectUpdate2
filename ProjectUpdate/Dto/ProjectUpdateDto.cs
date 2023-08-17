@@ -8,9 +8,9 @@ namespace ProjectUpdateApp.Dto
         public string ProjectName { get; set; }
         public string TaskDetails { get; set; }
 
-        public string Workinghrs { get; set; }
+        public int Workinghrs { get; set; }
 
-        public string Billinghrs { get; set; }
+        public int Billinghrs { get; set; }
         [MaxLength(1000)]
 
         public  string ProjectStatus { get; set; }

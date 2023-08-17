@@ -15,10 +15,10 @@ namespace ProjectUpdateApp.Dto
 
         public string TaskDetails { get; set; }
         public string ProjectStatus { get; set; }
-        public string Workinghrs { get; set; }
+        public int Workinghrs { get; set; }
 
-        public string Billinghrs { get; set; }
-        [MaxLength(1000)]
+        public int Billinghrs { get; set; }
+       
         public string NextPlan { get; set; }
         public DateTime UpdateDate { get; set; }
 

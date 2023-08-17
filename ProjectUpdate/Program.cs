@@ -27,6 +27,8 @@ namespace ProjectUpdateApp
             builder.Services.AddScoped<IProjectUpdateRepository,ProjectUpdateRepository>();
             builder.Services.AddScoped<IUserProjectUpdateService,UserProjectUpdateService>();
             builder.Services.AddScoped<IUserProjectUpdateRepository,UserProjectUpdateRepository>();
+            builder.Services.AddScoped<IRoleRepository,RoleRepository>();
+            builder.Services.AddScoped<IRoleService,RoleService>();
 
            
            

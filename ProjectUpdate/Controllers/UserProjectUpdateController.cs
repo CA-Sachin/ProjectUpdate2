@@ -62,16 +62,25 @@ namespace ProjectUpdateApp.Controllers
         [HttpPost("{userid}")]
         public IActionResult CreateProjectUpdate(Guid userid,UserProjectUpdateDto p)
         {
-
+            if (p == null)
+            {
+                return BadRequest(ModelState); 
+            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             if (!_userProjectUpdateService.CreateProjectUpdates(userid, p))
                 return Ok("user not found");
 
             return Ok("successfully created");
         }
+
         [HttpPut("{ ProjectUpdateID}")]
         public IActionResult UpdateDetails(Guid ProjectUpdateID,UserProjectUpdateDto p)
-        {
+        {   if (p == null)
+            {
+                return Ok("All field required!");
+            }
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 

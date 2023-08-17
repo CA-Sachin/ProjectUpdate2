@@ -42,7 +42,8 @@ namespace ProjectUpdateApp.Controllers
             var userMap = _mapper.Map<User>(userCreate);
 
 
-            _userService.CreateUser(userMap);
+            if (!_userService.CreateUser(userMap))
+                return Ok("Email already Exist");
 
 
             return Ok("Successfully created");
