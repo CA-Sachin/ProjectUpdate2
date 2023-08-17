@@ -76,13 +76,13 @@ namespace ProjectUpdateApp.Controllers
             if (!_roleService.RoleExists(id))
                 return NotFound();
 
-           
 
-            //if (!_roleService.UpdateRole(id, updatedRole))
-            //{
-            //    ModelState.AddModelError("", "Something went wrong updating role");
-            //    return StatusCode(500, ModelState);
-            //}
+
+            if (!_roleService.UpdateRole(id, updatedRole))
+            {
+                ModelState.AddModelError("", "Something went wrong updating role");
+                return StatusCode(500, ModelState);
+            }
 
             return Ok("role updated");
 

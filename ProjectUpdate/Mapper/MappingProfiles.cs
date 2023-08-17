@@ -16,6 +16,8 @@ namespace ProjectUpdateApp.Mapper
             CreateMap<ProjectUpdate,ProjectUpdateDto>();
             CreateMap<Role,RoleDto>();
             CreateMap<RoleDto,Role>();
+            CreateMap<ProjectDto,Project>();
+            CreateMap<Project,ProjectDto>();
         }
     }
 }

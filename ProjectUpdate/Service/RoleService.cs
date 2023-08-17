@@ -14,19 +14,19 @@ namespace ProjectUpdateApp.Service
             _roleRepository = roleRepository;
         }
 
-        public bool CreateRole(Role roleDto)
+        public bool CreateRole(Role role)
         {
-            var role = new Role
+            var r = new Role
             {
 
-                RoleName = roleDto.RoleName,
+                RoleName = role.RoleName,
                 CreatedOn=DateTime.Now,
                 IsDelete=false,
                 CreatedBy="Admin"
             
               
             };
-            return _roleRepository.CreateRole(role);
+            return _roleRepository.CreateRole(r);
         }
 
         public bool DeleteRole(Role role)

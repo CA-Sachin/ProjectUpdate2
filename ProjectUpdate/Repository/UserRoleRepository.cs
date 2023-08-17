@@ -52,7 +52,7 @@ namespace ProjectUpdateApp.Repository
 
             
 
-            if(uid == null && rid == null)
+            if(uid == null || rid == null)
                 return false;
 
             _Context.UserRole.Remove(uid);
@@ -85,11 +85,6 @@ namespace ProjectUpdateApp.Repository
                
 
             
-        }
-
-        public bool UserRoleExist(Guid id)
-        {
-            throw new NotImplementedException();
         }
         public bool Save()
         {
