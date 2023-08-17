@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using ProjectUpdateApp.Data;
 using ProjectUpdateApp.Dto;
 using ProjectUpdateApp.IRepository;
@@ -65,9 +66,14 @@ namespace ProjectUpdateApp.Repository
                 Email = email,
                 Password = u.Password,
                 Id = u.Id,
-                 Role=u.Role
+                
             };
             return (k);
+        }
+
+        public User GetUserbyId(Guid id)
+        {
+            return _context.User.Where(p => p.Id == id).FirstOrDefault();
         }
     }
 }

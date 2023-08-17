@@ -98,5 +98,20 @@ namespace ProjectUpdateApp.Controllers
             var t=_userService.GetDetils(email);
             return Ok(t);
         }
+
+        [HttpGet("user/{userId}")]
+        public IActionResult GetUserbyId(Guid userId)
+        {
+            if (!_userService.UserExists(userId))
+                return NotFound();
+
+            var user = _mapper.Map<UserDto>(_userService.GetUserbyId(userId));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(user);
+
+        }
     }
 }

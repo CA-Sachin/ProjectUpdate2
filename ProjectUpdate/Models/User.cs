@@ -13,7 +13,7 @@ namespace ProjectUpdateApp.Models
         public string Password { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
-        public string Role { get; set; }
+       
         public DateTime CreatedDate { get; set; }
        // public ICollection<UserProject> UserProjects{ get; set; }
         public ICollection<UserProjectUpdate> UserProjectUpdates{ get; set; }

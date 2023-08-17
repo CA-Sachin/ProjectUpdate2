@@ -10,6 +10,7 @@ namespace ProjectUpdateApp.IService
         bool UpdateUser(Guid id, User user);
         ICollection<User> GetRegistration();
         public UserDto GetDetils(string Email);
+        User GetUserbyId(Guid id);
         bool UserExists(Guid userId);
         bool DeleteUser(User register);
     }

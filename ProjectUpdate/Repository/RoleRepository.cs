@@ -1,4 +1,5 @@
 ﻿using ProjectUpdateApp.Data;
+using ProjectUpdateApp.Dto;
 using ProjectUpdateApp.IRepository;
 using ProjectUpdateApp.Models;
 
@@ -40,9 +41,11 @@ namespace ProjectUpdateApp.Repository
             return _Context.Role.Any(p => p.RoleId == Id);
         }
 
-        public bool UpdateRole(Guid id, Role role)
-        {
-            _Context.Update(role);
+        public bool UpdateRole(Guid id,RoleDto roledto)
+        {   
+            var role=_Context.Role.Where(x=>x.RoleId==id).FirstOrDefault();
+
+            role.RoleName = roledto.RoleName;
             return Save();
         }
         public bool Save()

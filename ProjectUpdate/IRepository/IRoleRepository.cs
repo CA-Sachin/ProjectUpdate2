@@ -1,4 +1,5 @@
-﻿using ProjectUpdateApp.Models;
+﻿using ProjectUpdateApp.Dto;
+using ProjectUpdateApp.Models;
 
 namespace ProjectUpdateApp.IRepository
 {
@@ -10,7 +11,7 @@ namespace ProjectUpdateApp.IRepository
         bool RoleExists(Guid userId);
 
         bool CreateRole(Role roleDto);
-        bool UpdateRole(Guid id, Role roleDto);
+        bool UpdateRole(Guid id, RoleDto roleDto);
         bool DeleteRole(Role role);
     }
 }

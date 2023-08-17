@@ -10,6 +10,7 @@ namespace ProjectUpdateApp.IRepository
 
         public ICollection<User> GetRegistration();
         public UserDto GetDetils (string Email);
+        User GetUserbyId(Guid id);
 
         bool UserExists(Guid userId);
         bool DeleteUser(User user);

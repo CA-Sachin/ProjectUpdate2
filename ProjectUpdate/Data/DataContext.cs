@@ -14,6 +14,7 @@ namespace ProjectUpdateApp.Data
         public DbSet<ProjectUpdate> ProjectUpdate{ get; set; }
         public DbSet<UserProjectUpdate> UserProjectUpdate{ get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

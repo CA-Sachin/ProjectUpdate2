@@ -57,7 +57,7 @@ namespace ProjectUpdateApp.Repository
                                     Id = user.Id,
                                     ProjectUpdateID = projectupdate.ProjectUpdateID,
                                     Username = user.Username,
-                                    Role = user.Role,
+                                   // Role = user.Role,
                                     ProjectName = projectupdate.ProjectName,
                                     TaskDetails = projectupdate.TaskDetails,
                                     ProjectStatus = projectupdate.ProjectStatus,
@@ -85,7 +85,7 @@ namespace ProjectUpdateApp.Repository
                                           Id = user.Id,
                                           ProjectUpdateID = projectupdate.ProjectUpdateID,
                                           Username = user.Username,
-                                          Role = user.Role,
+                                         // Role = user.Role,
                                           ProjectName = projectupdate.ProjectName,
                                           TaskDetails = projectupdate.TaskDetails,
                                           ProjectStatus = projectupdate.ProjectStatus,
@@ -111,7 +111,7 @@ namespace ProjectUpdateApp.Repository
                                     Id = user.Id,
                                     ProjectUpdateID = projectupdate.ProjectUpdateID,
                                     Username = user.Username,
-                                    Role = user.Role,
+                                   // Role = user.Role,
                                     ProjectName = projectupdate.ProjectName,
                                     TaskDetails = projectupdate.TaskDetails,
                                     ProjectStatus = projectupdate.ProjectStatus,
@@ -138,7 +138,7 @@ namespace ProjectUpdateApp.Repository
                                     Id = user.Id,
                                     ProjectUpdateID = projectupdate.ProjectUpdateID,
                                     Username = user.Username,
-                                    Role = user.Role,
+                                   // Role = user.Role,
                                     ProjectName = projectupdate.ProjectName,
                                     TaskDetails = projectupdate.TaskDetails,
                                     ProjectStatus = projectupdate.ProjectStatus,
@@ -160,10 +160,10 @@ namespace ProjectUpdateApp.Repository
 
             
 
-            if (x != null && x.Role.Equals("employee", StringComparison.OrdinalIgnoreCase))
-            {
-                if (p == null)
-                    return new List<UserUpdateDetailsDto>();
+            //if (x != null && x.Role.Equals("employee", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    if (p == null)
+            //        return new List<UserUpdateDetailsDto>();
 
 
                 var userprojectupdates = (from upu in _dataContext.UserProjectUpdate
@@ -175,7 +175,7 @@ namespace ProjectUpdateApp.Repository
                                               Id = UserID,
                                               ProjectUpdateID = projectupdate.ProjectUpdateID,
                                               Username=x.Username,
-                                              Role=x.Role,
+                                             // Role=x.Role,
                                               ProjectName=projectupdate.ProjectName,
                                               TaskDetails=projectupdate.TaskDetails,
                                               ProjectStatus=projectupdate.ProjectStatus,
@@ -187,27 +187,27 @@ namespace ProjectUpdateApp.Repository
 
 
                 return userprojectupdates;
-            }
-                   var k =            (from upu in _dataContext.UserProjectUpdate
-                                      join user in _dataContext.User on upu.Id equals user.Id
-                                      join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+            //}
+            //       var k =            (from upu in _dataContext.UserProjectUpdate
+            //                          join user in _dataContext.User on upu.Id equals user.Id
+            //                          join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
                                      
-                                      select new UserUpdateDetailsDto
-                                      {
-                                          Id = user.Id,
-                                          ProjectUpdateID = projectupdate.ProjectUpdateID,
-                                          Username = user.Username,
-                                          Role=user.Role,
-                                          ProjectName = projectupdate.ProjectName,
-                                          TaskDetails = projectupdate.TaskDetails,
-                                          ProjectStatus = projectupdate.ProjectStatus,
-                                          Workinghrs = projectupdate.Workinghrs,
-                                          Billinghrs = projectupdate.Billinghrs,
-                                          NextPlan = projectupdate.NextPlan,
-                                          UpdateDate = projectupdate.UpdateDate,
-                                      }).ToList();
+            //                          select new UserUpdateDetailsDto
+            //                          {
+            //                              Id = user.Id,
+            //                              ProjectUpdateID = projectupdate.ProjectUpdateID,
+            //                              Username = user.Username,
+            //                             // Role=user.Role,
+            //                              ProjectName = projectupdate.ProjectName,
+            //                              TaskDetails = projectupdate.TaskDetails,
+            //                              ProjectStatus = projectupdate.ProjectStatus,
+            //                              Workinghrs = projectupdate.Workinghrs,
+            //                              Billinghrs = projectupdate.Billinghrs,
+            //                              NextPlan = projectupdate.NextPlan,
+            //                              UpdateDate = projectupdate.UpdateDate,
+            //                          }).ToList();
 
-            return k;
+            //return k;
 
         }
 

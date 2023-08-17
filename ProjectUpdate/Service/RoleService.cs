@@ -1,4 +1,5 @@
-﻿using ProjectUpdateApp.IRepository;
+﻿using ProjectUpdateApp.Dto;
+using ProjectUpdateApp.IRepository;
 using ProjectUpdateApp.IService;
 using ProjectUpdateApp.Models;
 
@@ -48,7 +49,7 @@ namespace ProjectUpdateApp.Service
             return _roleRepository.RoleExists(userId);
         }
 
-        public bool UpdateRole(Guid id, Role roleDto)
+        public bool UpdateRole(Guid id, RoleDto roleDto)
         {
             return _roleRepository.UpdateRole(id, roleDto);
         }

@@ -1,7 +1,9 @@
 ﻿namespace ProjectUpdateApp.Dto
 {
     public class RoleDto
-    {
-        public string RoleName { get; set; }
+    {   public Guid Roleid { get; set; }
+        public string RoleName { get; set;}
+
+
     }
 }

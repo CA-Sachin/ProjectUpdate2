@@ -14,7 +14,7 @@ namespace ProjectUpdateApp.Dto
 
         public string ProjectStatus { get; set; }
         [Required]
-
+        
         public int Workinghrs { get; set; }
 
 

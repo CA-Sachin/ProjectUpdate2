@@ -21,7 +21,7 @@ namespace ProjectUpdateApp.Service
                 Username = user.Username,
                 Email = user.Email,
                 Password = user.Password,
-                Role = user.Role,
+             
                 CreatedDate = DateTime.UtcNow,
 
                 IsActive = true,
@@ -44,6 +44,11 @@ namespace ProjectUpdateApp.Service
         public ICollection<User> GetRegistration()
         {
             return _userRepository.GetRegistration();
+        }
+
+        public User GetUserbyId(Guid id)
+        {
+            return _userRepository.GetUserbyId(id);
         }
 
         public bool UpdateUser(Guid id, User user)
