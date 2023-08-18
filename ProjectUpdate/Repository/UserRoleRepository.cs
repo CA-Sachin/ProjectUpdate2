@@ -75,16 +75,29 @@ namespace ProjectUpdateApp.Repository
         {   
             var ur=_Context.UserRole.Where(x=>x.Userid==userid).FirstOrDefault();
 
-         
-            var role = _Context.Role.Where(x =>x.RoleId ==roleid).FirstOrDefault();
-            if (role == null) { return false; }
-            
-            ur.Roleid = roleid;
-            return Save();
-            
-               
+            if (ur == null) { return false; }
 
-            
+            _Context.UserRole.Remove(ur);
+
+            var userRoleMapping = new UserRole
+            {
+                Userid = userid,
+                Roleid = roleid,
+                IsDelete = false,
+                CreatedOn = DateTime.UtcNow,
+                CreatedBy = "Admin"
+
+            };
+            _Context.UserRole.Add(userRoleMapping);
+            return Save();
+         
+           
+
+
+
+
+
+
         }
         public bool Save()
         {

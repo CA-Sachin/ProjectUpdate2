@@ -70,31 +70,32 @@ namespace ProjectUpdateApp
                     ValidateIssuerSigningKey = true
                 };
             });
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin()
-                              .AllowAnyMethod()
-                              .AllowAnyHeader();
-                    });
-            });
+          
 
             var app = builder.Build();
+            var env = app.Environment;
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (env.IsDevelopment() || env.IsProduction())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseDeveloperExceptionPage();
             }
-            app.UseCors();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
+                c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Project Update API");
+            });
+
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
+            app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true)
+               .AllowCredentials());
 
             app.MapControllers();
 

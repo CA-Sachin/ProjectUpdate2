@@ -61,11 +61,21 @@ namespace ProjectUpdateApp.Repository
         public bool UpdateUserProject(Guid userid, Guid Projectid)
         {
             var ur = _Context.UserProject.Where(x => x.Userid == userid).FirstOrDefault();
-            var pid =_Context.Project.Where(x=>x.ProjectId == Projectid).FirstOrDefault();
+           
 
-         if(ur==null || pid ==null) { return false; }
+        if(ur==null) { return false; }
+         _Context.UserProject.Remove(ur);
 
-            ur.Projectid = Projectid;
+            var userProjectMapping = new UserProject
+            {
+                Userid = userid,
+                Projectid = Projectid,
+                IsDelete = false,
+                CreatedOn = DateTime.UtcNow,
+                CreatedBy = "Admin"
+
+            };
+            _Context.UserProject.Add(userProjectMapping);
             return Save();
 
 
