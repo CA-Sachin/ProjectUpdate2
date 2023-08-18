@@ -26,7 +26,9 @@ namespace ProjectUpdateApp.Dto
         [Required]
 
         public string NextPlan { get; set; }
-      
+        public string Reasonoflessbilling { get; set; }
+
+
 
 
     }

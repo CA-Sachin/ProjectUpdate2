@@ -14,7 +14,9 @@ namespace ProjectUpdateApp.Models
         [MaxLength(500)]
 
         public string TaskDetails { get; set; }
+        [MaxLength(50)]
          public string ProjectStatus { get; set; }
+
         public int Workinghrs { get; set; }
 
         public int Billinghrs { get; set; }

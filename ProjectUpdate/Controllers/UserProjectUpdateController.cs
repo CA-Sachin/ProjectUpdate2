@@ -75,7 +75,7 @@ namespace ProjectUpdateApp.Controllers
             return Ok("successfully created");
         }
 
-        [HttpPut("{ ProjectUpdateID}")]
+        [HttpPut("{ProjectUpdateID}")]
         public IActionResult UpdateDetails(Guid ProjectUpdateID,UserProjectUpdateDto p)
         {   if (p == null)
             {

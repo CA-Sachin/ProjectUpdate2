@@ -25,7 +25,7 @@ namespace ProjectUpdateApp.Service
                 Billinghrs = projectUpdate.Billinghrs,
                 UpdateDate = DateTime.UtcNow,
                 NextPlan = projectUpdate.NextPlan,
-                Reasonoflessbilling = "Ff"
+                Reasonoflessbilling = projectUpdate.Reasonoflessbilling
             };
             return  _userProjectUpdateRepository.CreateProjectUpdates(id, k);
         }

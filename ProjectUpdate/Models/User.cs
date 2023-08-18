@@ -5,19 +5,19 @@ namespace ProjectUpdateApp.Models
     public class User
     {
         public Guid Id { get; set; }
-        [MaxLength(100)]
+        [MaxLength(30)]
         public string Username { get; set; }
-        [MaxLength(100)]
+        [MaxLength(30)]
         public string Email { get; set; }
-        [MaxLength(50)]
+        [MaxLength(30)]
         public string Password { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
        
         public DateTime CreatedDate { get; set; }
-       // public ICollection<UserProject> UserProjects{ get; set; }
+      
         public ICollection<UserProjectUpdate> UserProjectUpdates{ get; set; }
-       // public ICollection<ProjectUpdate> ProjectUpdates{ get; set; }
+      
         
      
 
