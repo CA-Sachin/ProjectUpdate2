@@ -22,7 +22,7 @@ namespace ProjectUpdateApp.Controllers
         public IActionResult getalluser()
         {
 
-            //var map= _mapper.Map<List<RegistrationDto>>(_registrationService.GetRegistration)();
+           
             var map = _mapper.Map<List<UserDto>>(_userService.GetRegistration());
 
             return Ok(map);

@@ -34,7 +34,7 @@ namespace ProjectUpdateApp.Service
                 ProjectStatus = projectUPdate.ProjectStatus,
                UpdateDate = DateTime.Now,
                 Reasonoflessbilling = "er",
-               //User=projectUPdate.User,
+             
 
 
             };

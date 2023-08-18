@@ -61,8 +61,9 @@ namespace ProjectUpdateApp.Repository
         public bool UpdateUserProject(Guid userid, Guid Projectid)
         {
             var ur = _Context.UserProject.Where(x => x.Userid == userid).FirstOrDefault();
+            var pid =_Context.Project.Where(x=>x.ProjectId == Projectid).FirstOrDefault();
 
-         if(ur==null) { return false; }
+         if(ur==null || pid ==null) { return false; }
 
             ur.Projectid = Projectid;
             return Save();

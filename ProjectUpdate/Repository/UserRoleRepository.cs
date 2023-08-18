@@ -75,7 +75,7 @@ namespace ProjectUpdateApp.Repository
         {   
             var ur=_Context.UserRole.Where(x=>x.Userid==userid).FirstOrDefault();
 
-           //var rid=_Context.UserRole.Where(x=>x.Userid==userid).Select(x=>x.Roleid);
+         
             var role = _Context.Role.Where(x =>x.RoleId ==roleid).FirstOrDefault();
             if (role == null) { return false; }
             

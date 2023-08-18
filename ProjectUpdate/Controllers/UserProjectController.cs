@@ -26,7 +26,7 @@ namespace ProjectUpdateApp.Controllers
         [HttpPost]
         public IActionResult MapUserProject(Guid Userid, Guid Projectid)
         {
-            if (!_userProjectService.UserProjectExist(Userid, Projectid))
+            if (_userProjectService.UserProjectExist(Userid, Projectid))
                 return NotFound("mapping already exist! ");
 
             if (!_userProjectService.CreateUserProject(Userid, Projectid))
@@ -38,6 +38,7 @@ namespace ProjectUpdateApp.Controllers
         [HttpPut]
         public IActionResult UpdateUserProject(Guid Userid, Guid Projectid)
         {
+           
 
             if (!_userProjectService.UpdateUserProject(Userid, Projectid))
             {

@@ -23,7 +23,7 @@ namespace ProjectUpdateApp.Controllers
             _projectUpdateService = projectUpdateService;
             _mapper = mapper;
         }
-        // Inside one of your API controller actions
+     
 
 
 
@@ -37,7 +37,7 @@ namespace ProjectUpdateApp.Controllers
                 return BadRequest("invalid entry");
             }
              var projectmap = _mapper.Map<ProjectUpdate>(projectupdatedto);
-            //projectmap.Id= new Guid(userId);
+           
            
 
             _projectUpdateService.CreateProjectUpdate(projectmap);
