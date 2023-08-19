@@ -42,12 +42,12 @@ namespace ProjectUpdateApp.Repository
 
         public bool DeleteUserProject(Guid userid, Guid Projectid)
         {
-            var uid = _Context.UserProject.Where(x => x.Userid == userid).FirstOrDefault();
-            var rid = _Context.UserProject.Where(x => x.Projectid == Projectid).FirstOrDefault();
+            var ur = _Context.UserProject.Where(x => x.Userid == userid && x.Projectid == Projectid).FirstOrDefault();
+            
+           
 
-
-            _Context.UserProject.Remove(uid);
-            _Context.UserProject.Remove(rid);
+            _Context.UserProject.Remove(ur);
+            
             return Save();
 
         }
