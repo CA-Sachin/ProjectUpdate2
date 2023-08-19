@@ -5,7 +5,7 @@ namespace ProjectUpdateApp.IRepository
 {
     public interface IUserProjectRepository
     {
-        ICollection<UserProject> GetAllUserProject();
+        ICollection<UserProjectDto> GetAllUserProject();
       //UserProjectDto GetUserProjectbyId(Guid id,Guid pid);
         bool UserProjectExist(Guid id,Guid projectid);
         public bool CreateUserProject(Guid userid, Guid Projectid);

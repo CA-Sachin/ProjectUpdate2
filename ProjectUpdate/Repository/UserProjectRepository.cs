@@ -52,9 +52,22 @@ namespace ProjectUpdateApp.Repository
 
         }
 
-        public ICollection<UserProject> GetAllUserProject()
+        public ICollection<UserProjectDto> GetAllUserProject()
         {
-            return _Context.UserProject.ToList();
+            var userProjects = _Context.UserProject.ToList();
+
+            var userProjectsGrouped = userProjects
+          .GroupBy(up => up.Userid)
+          .Select(group => new UserProjectDto
+          {
+              Userid = group.Key,
+              UserName = _Context.User.FirstOrDefault(u => u.Id == group.Key)?.Username,
+              Projectid = group.Select(up => up.Projectid).ToList(),
+              ProjectName = string.Join(", ", group.Select(up => _Context.Project.FirstOrDefault(p => p.ProjectId == up.Projectid)?.ProjectName))
+          })
+          .ToList();
+
+            return userProjectsGrouped;
         }
 
 

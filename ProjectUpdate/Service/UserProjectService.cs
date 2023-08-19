@@ -23,7 +23,7 @@ namespace ProjectUpdateApp.Service
             return _userProjectRepository.DeleteUserProject(id, Projectid);
         }
 
-        public ICollection<UserProject> GetAllUserProject()
+        public ICollection<UserProjectDto> GetAllUserProject()
         {
             return _userProjectRepository.GetAllUserProject();
         }

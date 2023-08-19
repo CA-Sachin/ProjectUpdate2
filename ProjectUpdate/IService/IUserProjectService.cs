@@ -5,7 +5,7 @@ namespace ProjectUpdateApp.IService
 {
     public interface IUserProjectService
     {
-        ICollection<UserProject> GetAllUserProject();
+        ICollection<UserProjectDto> GetAllUserProject();
       //  UserProjectDto GetUserProjectbyId(Guid id);
         bool UserProjectExist(Guid id,Guid pid);
         public bool CreateUserProject(Guid userid, Guid Projectid);
