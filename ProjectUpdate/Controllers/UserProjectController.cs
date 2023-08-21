@@ -24,10 +24,9 @@ namespace ProjectUpdateApp.Controllers
 
         }
         [HttpPost]
-        public IActionResult MapUserProject(Guid Userid, Guid Projectid)
+        public IActionResult MapUserProject(Guid Userid, List<Guid> Projectid)
         {
-            if (_userProjectService.UserProjectExist(Userid, Projectid))
-                return NotFound("mapping already exist! ");
+           
 
             if (!_userProjectService.CreateUserProject(Userid, Projectid))
             {
@@ -36,7 +35,7 @@ namespace ProjectUpdateApp.Controllers
             return Ok("User mapped to Project successfully");
         }
         [HttpPut]
-        public IActionResult UpdateUserProject(Guid Userid, Guid Projectid)
+        public IActionResult UpdateUserProject(Guid Userid, List<Guid> Projectid)
         {
            
 
@@ -48,12 +47,12 @@ namespace ProjectUpdateApp.Controllers
             return Ok("User Project has been updated successfully");
         }
         [HttpDelete]
-        public IActionResult DeleteUserProject(Guid Userid, Guid Projectid)
+        public IActionResult DeleteUserProject(Guid Userid)
         {
-            if (!_userProjectService.UserProjectExist(Userid, Projectid))
-                return NotFound("mapping not found! ");
 
-            _userProjectService.DeleteUserProject(Userid, Projectid);
+
+            if (!_userProjectService.DeleteUserProject(Userid))
+                return Ok("not found!");
 
             return Ok("Deleted");
         }

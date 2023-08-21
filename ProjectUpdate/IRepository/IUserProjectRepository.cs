@@ -8,8 +8,8 @@ namespace ProjectUpdateApp.IRepository
         ICollection<UserProjectDto> GetAllUserProject();
       //UserProjectDto GetUserProjectbyId(Guid id,Guid pid);
         bool UserProjectExist(Guid id,Guid projectid);
-        public bool CreateUserProject(Guid userid, Guid Projectid);
-        public bool UpdateUserProject(Guid userid, Guid Projectid);
-        public bool DeleteUserProject(Guid id, Guid Projectid);
+        public bool CreateUserProject(Guid userid, List<Guid> Projectid);
+        public bool UpdateUserProject(Guid userid, List<Guid> Projectid);
+        public bool DeleteUserProject(Guid id);
     }
 }

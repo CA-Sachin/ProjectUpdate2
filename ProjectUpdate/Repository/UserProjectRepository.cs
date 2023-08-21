@@ -14,40 +14,49 @@ namespace ProjectUpdateApp.Repository
 
             _Context = Context;
         }
-        public bool CreateUserProject(Guid userid, Guid Projectid)
+        public bool CreateUserProject(Guid userid, List<Guid> Projectid)
         {
             var user = _Context.User.Find(userid);
-            var Project = _Context.Project.Find(Projectid);
 
-            if (user == null || Project == null)
+
+            if (user == null)
             {
                 return false;
             }
 
 
-            var userProjectMapping = new UserProject
+            foreach (var projectId in Projectid)
             {
-                Userid = userid,
-                Projectid = Projectid,
-                IsDelete = false,
-                CreatedOn = DateTime.UtcNow,
-                CreatedBy = "Admin"
+                var existingMapping = _Context.UserProject.FirstOrDefault(up => up.Userid == userid && up.Projectid == projectId);
 
-            };
+                if (existingMapping == null)
+                {
 
-            _Context.UserProject.Add(userProjectMapping);
+                    var project = _Context.Project.Find(projectId);
+                    if (project != null)
+                    {
+                        var userProjectMapping = new UserProject
+                        {
+                            Userid = userid,
+                            Projectid = projectId,
+                            IsDelete = false,
+                            CreatedOn = DateTime.UtcNow,
+                            CreatedBy = "Admin"
+                        };
+                        _Context.UserProject.Add(userProjectMapping);
+                    }
+                }
+            }
             return Save();
-
         }
 
-        public bool DeleteUserProject(Guid userid, Guid Projectid)
+        public bool DeleteUserProject(Guid userid)
         {
-            var ur = _Context.UserProject.Where(x => x.Userid == userid && x.Projectid == Projectid).FirstOrDefault();
-            
-           
 
-            _Context.UserProject.Remove(ur);
-            
+            var userprojects = _Context.UserProject.Where(x => x.Userid == userid).ToList();
+            if (userprojects.Count == 0) { return false; }
+
+            _Context.UserProject.RemoveRange(userprojects);
             return Save();
 
         }
@@ -71,26 +80,35 @@ namespace ProjectUpdateApp.Repository
         }
 
 
-        public bool UpdateUserProject(Guid userid, Guid Projectid)
+        public bool UpdateUserProject(Guid userid, List<Guid> Projectids)
         {
             var ur = _Context.UserProject.Where(x => x.Userid == userid).FirstOrDefault();
-           
 
-        if(ur==null) { return false; }
-         _Context.UserProject.Remove(ur);
 
-            var userProjectMapping = new UserProject
+            if (ur == null) { return false; }
+
+            var existingMappings = _Context.UserProject.Where(up => up.Userid == userid);
+            _Context.UserProject.RemoveRange(existingMappings);
+
+            foreach (var projectId in Projectids)
             {
-                Userid = userid,
-                Projectid = Projectid,
-                IsDelete = false,
-                CreatedOn = DateTime.UtcNow,
-                CreatedBy = "Admin"
+                var project = _Context.Project.Find(projectId);
 
-            };
-            _Context.UserProject.Add(userProjectMapping);
+                if (project != null)
+                {
+                    var newUserProjectMapping = new UserProject
+                    {
+                        Userid = userid,
+                        Projectid = projectId,
+                        IsDelete = false,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedBy = "Admin"
+                    };
+
+                    _Context.UserProject.Add(newUserProjectMapping);
+                }
+            }
             return Save();
-
 
 
 

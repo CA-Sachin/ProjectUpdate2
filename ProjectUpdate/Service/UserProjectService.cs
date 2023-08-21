@@ -13,14 +13,14 @@ namespace ProjectUpdateApp.Service
         {
             _userProjectRepository = userProjectRepository;
         }
-        public bool CreateUserProject(Guid userid, Guid Projectid)
+        public bool CreateUserProject(Guid userid, List<Guid> Projectid)
         {
             return _userProjectRepository.CreateUserProject(userid, Projectid);
         }
 
-        public bool DeleteUserProject(Guid id, Guid Projectid)
+        public bool DeleteUserProject(Guid id)
         {
-            return _userProjectRepository.DeleteUserProject(id, Projectid);
+            return _userProjectRepository.DeleteUserProject(id);
         }
 
         public ICollection<UserProjectDto> GetAllUserProject()
@@ -30,7 +30,7 @@ namespace ProjectUpdateApp.Service
 
         
 
-        public bool UpdateUserProject(Guid id, Guid Projectid)
+        public bool UpdateUserProject(Guid id, List<Guid> Projectid)
         {
             return _userProjectRepository.UpdateUserProject(id, Projectid);
         }
