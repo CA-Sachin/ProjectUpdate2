@@ -61,6 +61,14 @@ namespace ProjectUpdateApp.Controllers
             return Ok(k);
 
         }
+        [HttpGet("api/UserProjectUpdate/ResourceNameFilter")]
+        public IActionResult ResourceNameFilter(string searchitem)
+        {
+            var k = _userProjectUpdateService.ResourceNameFilter(searchitem);
+            return Ok(k);
+
+
+        }
         [HttpGet("api/UserProjectUpdate/ProjectNameFilter")]
         public IActionResult ProjectNameFilter(string searchitem)
         {

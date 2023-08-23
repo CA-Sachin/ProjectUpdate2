@@ -300,5 +300,33 @@ namespace ProjectUpdateApp.Repository
 
             return filteredUserProjects;
         }
+
+        public ICollection<UserUpdateDetailsDto> ResourceNameFilter(string searchitem)
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.ProjectName ascending
+                                select new UserUpdateDetailsDto
+                                {
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+                                    Reasonoflessbilling = projectupdate.Reasonoflessbilling,
+                                }).ToList();
+
+            var filteredUserProjects = userprojects
+                .Where(p => p.Username.Contains(searchitem, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            return filteredUserProjects;
+        }
     }
 }
