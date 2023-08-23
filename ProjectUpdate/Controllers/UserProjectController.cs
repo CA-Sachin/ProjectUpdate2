@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectUpdateApp.IService;
 
 namespace ProjectUpdateApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserProjectController : Controller
     {
@@ -30,7 +32,7 @@ namespace ProjectUpdateApp.Controllers
 
             if (!_userProjectService.CreateUserProject(Userid, Projectid))
             {
-                return NotFound("User or Project not found ");
+                return NotFound("User or Project not found pr mapping exist");
             }
             return Ok("User mapped to Project successfully");
         }

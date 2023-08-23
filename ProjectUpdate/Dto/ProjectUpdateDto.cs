@@ -15,8 +15,8 @@ namespace ProjectUpdateApp.Dto
         
 
         public int Billinghrs { get; set; }
-        
-        
+        public DateTime UpdateDate { get; set; }
+
 
         public  string ProjectStatus { get; set; }
         public string NextPlan { get; set; }

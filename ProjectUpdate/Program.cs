@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ProjectUpdateApp.Data;
 using ProjectUpdateApp.IRepository;
 using ProjectUpdateApp.IService;
@@ -45,7 +46,46 @@ namespace ProjectUpdateApp
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
+
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGen(sw =>
+                  sw.SwaggerDoc("v1",
+                  new OpenApiInfo { Title = "ProjectUpdateApp", Version = "1.0" }));
+            builder.Services.AddSwaggerGen(s =>
+            s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "iNSERT jwt Token",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "bearer"
+            }));
+            builder.Services.AddSwaggerGen(w =>
+            w.AddSecurityRequirement(
+                new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference=new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                 }
+
+                ));
+          
+
+
+
+
+
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
@@ -70,7 +110,7 @@ namespace ProjectUpdateApp
                     ValidateIssuerSigningKey = true
                 };
             });
-          
+           
 
             var app = builder.Build();
             var env = app.Environment;
@@ -80,16 +120,19 @@ namespace ProjectUpdateApp
             {
                 app.UseDeveloperExceptionPage();
             }
+           
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
                 c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Project Update API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectUpdate");
             });
 
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors(x => x
                .AllowAnyMethod()

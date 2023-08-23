@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectUpdateApp.Dto;
 using ProjectUpdateApp.IService;
@@ -8,6 +9,7 @@ using ProjectUpdateApp.Service;
 namespace ProjectUpdateApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ProjectController : Controller
     {
@@ -20,7 +22,7 @@ namespace ProjectUpdateApp.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet,Authorize]
         public IActionResult GetAllProjects()
         {
             var p = _projectService.GetAllProjects();

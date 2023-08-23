@@ -5,10 +5,12 @@ using ProjectUpdateApp.IService;
 using ProjectUpdateApp.Models;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectUpdateApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserProjectUpdateController : Controller
     {

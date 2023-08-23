@@ -11,6 +11,7 @@ using System.Security.Claims;
 namespace ProjectUpdateApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     
     public class ProjectUpdateController : Controller

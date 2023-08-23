@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectUpdateApp.IService;
 using ProjectUpdateApp.Models;
@@ -6,6 +7,7 @@ using ProjectUpdateApp.Models;
 namespace ProjectUpdateApp.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserRoleController : Controller
     {
