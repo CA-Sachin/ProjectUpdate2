@@ -61,7 +61,7 @@ namespace ProjectUpdateApp.Controllers
             return Ok(k);
 
         }
-        [HttpGet("api/UserProjectUpdate/ResourceNameFilter")]
+        [HttpPost("api/UserProjectUpdate/ResourceNameFilter")]
         public IActionResult ResourceNameFilter(string searchitem)
         {
             var k = _userProjectUpdateService.ResourceNameFilter(searchitem);
@@ -69,7 +69,7 @@ namespace ProjectUpdateApp.Controllers
 
 
         }
-        [HttpGet("api/UserProjectUpdate/ProjectNameFilter")]
+        [HttpPost("api/UserProjectUpdate/ProjectNameFilter")]
         public IActionResult ProjectNameFilter(string searchitem)
         {
             var k = _userProjectUpdateService.ProjectNameFilter(searchitem);
@@ -77,7 +77,7 @@ namespace ProjectUpdateApp.Controllers
 
 
         }
-        [HttpGet("api/UserProjectUpdate/ProjectStatusFilter")]
+        [HttpPost("api/UserProjectUpdate/ProjectStatusFilter")]
         public IActionResult ProjectStatusFilter(string searchitem)
         {
             var k = _userProjectUpdateService.ProjectStatusFilter(searchitem);
@@ -85,7 +85,7 @@ namespace ProjectUpdateApp.Controllers
 
 
         }
-        [HttpGet("api/UserProjectUpdate/ProjectDateFilter")]
+        [HttpPost("api/UserProjectUpdate/ProjectDateFilter")]
         public IActionResult ProjectDateFilter(DateTime searchitem)
         {
             var k = _userProjectUpdateService.DateFilter(searchitem);
