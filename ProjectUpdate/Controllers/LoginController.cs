@@ -7,6 +7,7 @@ using ProjectUpdateApp.Service;
 namespace ProjectUpdateApp.Controllers
 {
     [Route("api/[controller]")]
+
     [ApiController]
     public class LoginController : Controller
     {

@@ -3,6 +3,7 @@ using ProjectUpdateApp.Data;
 using ProjectUpdateApp.Dto;
 using ProjectUpdateApp.IRepository;
 using ProjectUpdateApp.Models;
+using System.Linq;
 
 namespace ProjectUpdateApp.Repository
 {
@@ -74,7 +75,7 @@ namespace ProjectUpdateApp.Repository
             return userprojectupdates;
                                 
         }
-        public ICollection<UserUpdateDetailsDto> FilterByDate()
+        public ICollection<UserUpdateDetailsDto> SortingByDate()
         {
 
             var userprojectupdates = (from upu in _dataContext.UserProjectUpdate
@@ -102,7 +103,7 @@ namespace ProjectUpdateApp.Repository
             return userprojectupdates;
 
         }
-        public ICollection<UserUpdateDetailsDto> FilterByProjectName()
+        public ICollection<UserUpdateDetailsDto> SortingByProjectName()
         {
             var userprojects = (from upu in _dataContext.UserProjectUpdate
                                 join user in _dataContext.User on upu.Id equals user.Id
@@ -130,7 +131,7 @@ namespace ProjectUpdateApp.Repository
             return userprojects;
         }
 
-        public ICollection<UserUpdateDetailsDto> FilterByProjectStatus()
+        public ICollection<UserUpdateDetailsDto> SortingByProjectStatus()
         {
             var userprojects = (from upu in _dataContext.UserProjectUpdate
                                 join user in _dataContext.User on upu.Id equals user.Id
@@ -214,6 +215,90 @@ namespace ProjectUpdateApp.Repository
 
 
             return Save();
+        }
+
+        public ICollection<UserUpdateDetailsDto> ProjectNameFilter(string searchitem)
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.ProjectName ascending
+                                select new UserUpdateDetailsDto
+                                {
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+                                    Reasonoflessbilling = projectupdate.Reasonoflessbilling,
+                                }).ToList();
+
+            var filteredUserProjects = userprojects
+                .Where(p => p.ProjectName.Contains(searchitem, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            return filteredUserProjects;
+        }
+
+        public ICollection<UserUpdateDetailsDto> ProjectStatusFilter(string searchitem)
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.ProjectStatus ascending
+                                select new UserUpdateDetailsDto
+                                {
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+                                    Reasonoflessbilling = projectupdate.Reasonoflessbilling,
+                                }).ToList();
+
+            var filteredUserProjects = userprojects
+                .Where(p => p.ProjectStatus.Contains(searchitem, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            return filteredUserProjects;
+        }
+
+        public ICollection<UserUpdateDetailsDto> DateFilter(DateTime searchitem)
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.UpdateDate ascending
+                                select new UserUpdateDetailsDto
+                                {
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+                                    Reasonoflessbilling = projectupdate.Reasonoflessbilling,
+                                }).ToList();
+
+            var filteredUserProjects = userprojects
+                .Where(p => p.UpdateDate.Date==searchitem.Date)
+                .ToList();
+
+            return filteredUserProjects;
         }
     }
 }

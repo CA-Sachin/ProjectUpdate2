@@ -15,9 +15,12 @@ namespace ProjectUpdateApp.IRepository
         public bool DeleteProjectUpdate(Guid ProjectUpdateID);
 
 
-        public ICollection<UserUpdateDetailsDto> FilterByDate();
-        public ICollection<UserUpdateDetailsDto> FilterByProjectName();
-        public ICollection<UserUpdateDetailsDto> FilterByProjectStatus();
+        public ICollection<UserUpdateDetailsDto> SortingByDate();
+        public ICollection<UserUpdateDetailsDto> SortingByProjectName();
+        public ICollection<UserUpdateDetailsDto> SortingByProjectStatus();
+        public ICollection<UserUpdateDetailsDto> ProjectNameFilter(string searchitem);
+        public ICollection<UserUpdateDetailsDto> ProjectStatusFilter(string searchitem);
+        public ICollection<UserUpdateDetailsDto> DateFilter(DateTime searchitem);
 
 
     }

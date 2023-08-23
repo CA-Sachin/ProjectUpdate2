@@ -39,20 +39,20 @@ namespace ProjectUpdateApp.Service
         {
           return _userProjectUpdateRepository.GetProjectList();
         }
-        public ICollection<UserUpdateDetailsDto> FilterByDate()
+        public ICollection<UserUpdateDetailsDto> SortingByDate()
         {
-            return _userProjectUpdateRepository.FilterByDate();
+            return _userProjectUpdateRepository.SortingByDate();
         }
 
-        public ICollection<UserUpdateDetailsDto> FilterByProjectName()
+        public ICollection<UserUpdateDetailsDto> SortingByProjectName()
         {
-            return _userProjectUpdateRepository.FilterByProjectName();
+            return _userProjectUpdateRepository.SortingByProjectName();
 
         }
 
-        public ICollection<UserUpdateDetailsDto> FilterByProjectStatus()
+        public ICollection<UserUpdateDetailsDto> SortingByProjectStatus()
         {
-            return _userProjectUpdateRepository.FilterByProjectStatus();
+            return _userProjectUpdateRepository.SortingByProjectStatus();
         }
         public ICollection<UserUpdateDetailsDto> GetProjectListByID(Guid UserID)
         {
@@ -62,6 +62,21 @@ namespace ProjectUpdateApp.Service
         public bool UpdateDetails(Guid ProjectUpdateID, UserProjectUpdateDto projectUpdate)
         {
            return _userProjectUpdateRepository.UpdateDetails(ProjectUpdateID, projectUpdate);
+        }
+
+        public ICollection<UserUpdateDetailsDto> ProjectNameFilter(string searchitem)
+        {
+           return _userProjectUpdateRepository.ProjectNameFilter(searchitem);
+        }
+
+        public ICollection<UserUpdateDetailsDto> ProjectStatusFilter(string searchitem)
+        {
+           return _userProjectUpdateRepository.ProjectStatusFilter(searchitem);
+        }
+
+        public ICollection<UserUpdateDetailsDto> DateFilter(DateTime searchitem)
+        {
+            return _userProjectUpdateRepository.DateFilter(searchitem);
         }
     }
 }

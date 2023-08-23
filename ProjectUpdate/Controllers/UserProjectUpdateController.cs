@@ -38,29 +38,54 @@ namespace ProjectUpdateApp.Controllers
 
             return Ok(user);
         }
-
-        [HttpGet("api/UserProjectUpdate/FilterByDate")]
-        public IActionResult FilterByDate()
+       
+        [HttpGet("api/UserProjectUpdate/SortingByDate")]
+        public IActionResult SortingByDate()
         {
-            var k = _userProjectUpdateService.FilterByDate();
+            var k = _userProjectUpdateService.SortingByDate();
             return Ok(k);
 
         }
 
-        [HttpGet("api/UserProjectUpdate/FilterByName")]
-        public IActionResult FilterByName()
+        [HttpGet("api/UserProjectUpdate/SortingByName")]
+        public IActionResult SortingByName()
         {
-            var k = _userProjectUpdateService.FilterByProjectName();
+            var k = _userProjectUpdateService.SortingByProjectName();
             return Ok(k);
 
         }
-        [HttpGet("api/UserProjectUpdate/FilterByProjectStatus")]
-        public IActionResult FilterByProjectStatus()
+        [HttpGet("api/UserProjectUpdate/SortingByProjectStatus")]
+        public IActionResult SortingByProjectStatus()
         {
-            var k = _userProjectUpdateService.FilterByProjectStatus();
+            var k = _userProjectUpdateService.SortingByProjectStatus();
             return Ok(k);
 
         }
+        [HttpGet("api/UserProjectUpdate/ProjectNameFilter")]
+        public IActionResult ProjectNameFilter(string searchitem)
+        {
+            var k = _userProjectUpdateService.ProjectNameFilter(searchitem);
+            return Ok(k);
+
+
+        }
+        [HttpGet("api/UserProjectUpdate/ProjectStatusFilter")]
+        public IActionResult ProjectStatusFilter(string searchitem)
+        {
+            var k = _userProjectUpdateService.ProjectStatusFilter(searchitem);
+            return Ok(k);
+
+
+        }
+        [HttpGet("api/UserProjectUpdate/ProjectDateFilter")]
+        public IActionResult ProjectDateFilter(DateTime searchitem)
+        {
+            var k = _userProjectUpdateService.DateFilter(searchitem);
+            return Ok(k);
+
+
+        }
+
         [HttpPost("{userid}")]
         public IActionResult CreateProjectUpdate(Guid userid,UserProjectUpdateDto p)
         {

@@ -22,7 +22,7 @@ namespace ProjectUpdateApp.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet,Authorize]
+        [HttpGet]
         public IActionResult GetAllProjects()
         {
             var p = _projectService.GetAllProjects();
