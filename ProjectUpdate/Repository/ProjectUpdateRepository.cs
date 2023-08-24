@@ -50,6 +50,7 @@ namespace ProjectUpdateApp.Repository
                 ProjectStatus = p.ProjectStatus,
                 Workinghrs = p.Workinghrs,
                 UpdateDate = p.UpdateDate,
+                Reasonoflessbilling=p.Reasonoflessbilling
                 
                
             };
@@ -80,6 +81,7 @@ namespace ProjectUpdateApp.Repository
                 details.Billinghrs= p.Billinghrs;
                 details.NextPlan= p.NextPlan;
             details.UpdateDate= p.UpdateDate;
+            details.Reasonoflessbilling= p.Reasonoflessbilling;
 
             return Save();
 
