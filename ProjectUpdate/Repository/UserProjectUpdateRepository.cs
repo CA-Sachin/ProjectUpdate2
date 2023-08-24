@@ -3,6 +3,7 @@ using ProjectUpdateApp.Data;
 using ProjectUpdateApp.Dto;
 using ProjectUpdateApp.IRepository;
 using ProjectUpdateApp.Models;
+using System.Globalization;
 using System.Linq;
 
 namespace ProjectUpdateApp.Repository
@@ -327,6 +328,54 @@ namespace ProjectUpdateApp.Repository
                 .ToList();
 
             return filteredUserProjects;
+        }
+
+        public ICollection<UserUpdateDetailsDto> Filter(string name, string projectname, string status, DateTime date)
+        {
+            var userprojects = (from upu in _dataContext.UserProjectUpdate
+                                join user in _dataContext.User on upu.Id equals user.Id
+                                join projectupdate in _dataContext.ProjectUpdate on upu.ProjectUpdateID equals projectupdate.ProjectUpdateID
+                                orderby projectupdate.ProjectName ascending
+                                select new UserUpdateDetailsDto
+                                {
+                                    Id = user.Id,
+                                    ProjectUpdateID = projectupdate.ProjectUpdateID,
+                                    Username = user.Username,
+                                    ProjectName = projectupdate.ProjectName,
+                                    TaskDetails = projectupdate.TaskDetails,
+                                    ProjectStatus = projectupdate.ProjectStatus,
+                                    Workinghrs = projectupdate.Workinghrs,
+                                    Billinghrs = projectupdate.Billinghrs,
+                                    NextPlan = projectupdate.NextPlan,
+                                    UpdateDate = projectupdate.UpdateDate,
+                                    Reasonoflessbilling = projectupdate.Reasonoflessbilling,
+                                }).ToList();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                userprojects = userprojects.Where(p => p.Username.Contains(name)).ToList();
+            }
+            if (!string.IsNullOrEmpty(projectname))
+            {
+                userprojects = userprojects.Where(p => p.ProjectName.Contains(projectname)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                userprojects = userprojects.Where(p => p.ProjectStatus == status).ToList();
+            }
+
+            if (date != DateTime.MinValue)
+            {
+                userprojects = userprojects.Where(p => p.UpdateDate.Date <= date.Date).ToList();
+            }
+            else
+            {
+                userprojects = userprojects.Where(p => p.UpdateDate.Date <= DateTime.Now.Date).ToList();
+            }
+
+
+            return userprojects;
         }
     }
 }

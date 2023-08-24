@@ -93,6 +93,12 @@ namespace ProjectUpdateApp.Controllers
 
 
         }
+        [HttpGet("api/UserProjectUpdate/Filter")]
+        public IActionResult  Filter(string ?resourcename,string ?projectname,string ?status,DateTime date) {
+
+            var k = _userProjectUpdateService.Filter(resourcename, projectname, status, date);
+            return Ok(k);
+        }
 
         [HttpPost("{userid}")]
         public IActionResult CreateProjectUpdate(Guid userid,UserProjectUpdateDto p)

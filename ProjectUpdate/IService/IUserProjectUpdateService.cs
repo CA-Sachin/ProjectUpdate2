@@ -19,6 +19,7 @@ namespace ProjectUpdateApp.IService
         public ICollection<UserUpdateDetailsDto> ProjectNameFilter(string searchitem);
         public ICollection<UserUpdateDetailsDto> ProjectStatusFilter(string searchitem);
         public ICollection<UserUpdateDetailsDto> DateFilter(DateTime searchitem);
+        public ICollection<UserUpdateDetailsDto> Filter(string name, string projectname, string status, DateTime date);
 
 
 

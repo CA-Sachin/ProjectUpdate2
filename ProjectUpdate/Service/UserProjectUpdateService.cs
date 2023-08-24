@@ -83,5 +83,10 @@ namespace ProjectUpdateApp.Service
         {
            return _userProjectUpdateRepository.ResourceNameFilter(searchitem);
         }
+
+        public ICollection<UserUpdateDetailsDto> Filter(string name, string projectname, string status, DateTime date)
+        {
+            return _userProjectUpdateRepository.Filter(name, projectname, status, date);
+        }
     }
 }
