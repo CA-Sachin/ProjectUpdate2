@@ -66,6 +66,7 @@ namespace ProjectUpdateApp.Repository
                 Email = email,
                 Password = u.Password,
                 Id = u.Id,
+                Repeat_Password = "";
                 
             };
             return (k);

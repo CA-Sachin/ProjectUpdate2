@@ -12,6 +12,7 @@ namespace ProjectUpdateApp.Dto
         [Required]
 
         public string Password { get; set; }
+        public string Repeat_Password { get; set; }
 
        
     }
