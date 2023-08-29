@@ -28,9 +28,9 @@ namespace ProjectUpdateApp.Service
           return _userRoleRepository.GetAllUserRole();
         }
 
-        public UserRoleDto GetUserRolebyId(Guid id)
+        public ICollection< UserRoleDto> GetUserRolebyId(Guid id)
         {
-            throw new NotImplementedException();
+            return _userRoleRepository.GetUserRolebyId(id);
         }
 
         public bool UpdateUserRole(Guid id, Guid Roleid)

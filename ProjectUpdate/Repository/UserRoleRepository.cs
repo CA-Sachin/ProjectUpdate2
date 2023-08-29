@@ -66,9 +66,21 @@ namespace ProjectUpdateApp.Repository
             return _Context.UserRole.ToList();
         }
 
-        public UserRoleDto GetUserRolebyId(Guid id)
+        public ICollection<UserRoleDto> GetUserRolebyId(Guid id)
         {
-            throw new NotImplementedException();
+            var userrole = (from userRole in _Context.UserRole
+                            join user in _Context.User on userRole.Userid equals user.Id
+                            join role in _Context.Role on userRole.Roleid equals role.RoleId
+                            where userRole.Userid == id
+                            select new UserRoleDto
+                            {
+                                Username = user.Username,
+                                RoleName = role.RoleName,
+                                Userid = user.Id,
+                                Roleid = role.RoleId
+
+                            }).ToList();
+             return userrole;
         }
 
         public bool UpdateUserRole(Guid userid, Guid roleid)

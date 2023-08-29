@@ -6,8 +6,8 @@ namespace ProjectUpdateApp.IRepository
     public interface IUserRoleRepository
     {
         ICollection<UserRole> GetAllUserRole();
-        UserRoleDto GetUserRolebyId(Guid id);
-      
+         ICollection< UserRoleDto> GetUserRolebyId(Guid id);
+        
         public bool CreateUserRole(Guid userid, Guid roleid);
         public bool UpdateUserRole(Guid userid, Guid roleid);
         public bool DeleteUserRole(Guid id, Guid roleid);

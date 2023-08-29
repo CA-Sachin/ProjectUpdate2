@@ -71,8 +71,7 @@ namespace ProjectUpdateApp.Repository
                                     
 
 
-                                }).ToList();
-                               
+                                }).ToList();                               
             return userprojectupdates;
                                 
         }
@@ -353,16 +352,16 @@ namespace ProjectUpdateApp.Repository
 
             if (!string.IsNullOrEmpty(name))
             {
-                userprojects = userprojects.Where(p => p.Username.Contains(name)).ToList();
+                userprojects = userprojects.Where(p => p.Username.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
             }
             if (!string.IsNullOrEmpty(projectname))
             {
-                userprojects = userprojects.Where(p => p.ProjectName.Contains(projectname)).ToList();
+                userprojects = userprojects.Where(p => p.ProjectName.Contains(projectname, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             if (!string.IsNullOrEmpty(status))
             {
-                userprojects = userprojects.Where(p => p.ProjectStatus == status).ToList();
+                userprojects = userprojects.Where(p => p.ProjectStatus.Contains(status, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             if (date != DateTime.MinValue)
